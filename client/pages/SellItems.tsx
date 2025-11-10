@@ -128,6 +128,7 @@ export default function SellItems() {
   const generateInvoiceMessage = (sale: any) => {
     const date = new Date(sale.createdAt).toLocaleDateString("en-IN");
     let message = `*Snack Kit Invoice*\n`;
+    message += `Invoice #: ${sale.invoiceNumber}\n`;
     message += `Date: ${date}\n`;
     message += `Bakery: ${sale.bakerySnapshot.name}\n\n`;
     message += `*Items:*\n`;

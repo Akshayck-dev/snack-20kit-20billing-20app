@@ -87,7 +87,12 @@ export default function SalesHistoryPage() {
                   className="w-full p-6 flex items-center justify-between hover:bg-secondary/30 transition-colors"
                 >
                   <div className="flex-1 text-left">
-                    <h3 className="font-bold text-foreground text-lg">{sale.bakerySnapshot.name}</h3>
+                    <div className="flex items-center gap-3">
+                      <h3 className="font-bold text-foreground text-lg">{sale.bakerySnapshot.name}</h3>
+                      <span className="text-xs font-semibold bg-primary/10 text-primary px-2 py-1 rounded">
+                        {sale.invoiceNumber}
+                      </span>
+                    </div>
                     <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
                       <span>{new Date(sale.createdAt).toLocaleDateString("en-IN")}</span>
                       <span>{sale.items.length} items</span>

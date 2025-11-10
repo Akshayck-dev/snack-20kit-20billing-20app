@@ -5,7 +5,16 @@ const STORAGE_KEYS = {
   ITEMS: "snack_kit_items",
   SALES: "snack_kit_sales",
   ADMIN: "snack_kit_admin",
+  INVOICE_COUNTER: "snack_kit_invoice_counter",
 };
+
+// Invoice Number Generation
+export function generateInvoiceNumber(): string {
+  let counter = localStorage.getItem(STORAGE_KEYS.INVOICE_COUNTER);
+  let nextNumber = counter ? parseInt(counter) + 1 : 1001;
+  localStorage.setItem(STORAGE_KEYS.INVOICE_COUNTER, nextNumber.toString());
+  return `INV-${nextNumber}`;
+}
 
 // Bakeries
 export function getBakeries(): Bakery[] {

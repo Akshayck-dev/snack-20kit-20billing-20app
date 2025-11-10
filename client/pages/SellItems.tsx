@@ -90,6 +90,8 @@ export default function SellItems() {
 
     setIsSubmitting(true);
 
+    const invoiceNumber = generateInvoiceNumber();
+
     const sale = {
       id: Date.now().toString(),
       bakeryId: selectedBakery.id,
@@ -101,6 +103,7 @@ export default function SellItems() {
       totalAmount,
       createdAt: Date.now(),
       status: "pending" as const,
+      invoiceNumber,
     };
 
     addSale(sale);

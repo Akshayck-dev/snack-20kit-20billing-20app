@@ -35,6 +35,7 @@ export interface Sale {
   createdAt: number;
   status: "sent" | "pending" | "failed";
   invoiceId?: string;
+  invoiceNumber: string;
 }
 
 export interface Admin {

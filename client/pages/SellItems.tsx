@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { ArrowLeft, Plus, Trash2, Send } from "lucide-react";
 import { Link } from "react-router-dom";
-import { getBakeries, getItems, addBakery, addSale, updateBakery } from "@/lib/storage";
+import { getBakeries, getItems, addBakery, addSale, updateBakery, generateInvoiceNumber } from "@/lib/storage";
 import { Bakery, Item, SaleItem } from "@/lib/types";
 
 export default function SellItems() {

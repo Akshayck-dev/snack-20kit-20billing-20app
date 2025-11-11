@@ -17,6 +17,7 @@ export default function SellItems() {
   const [showItemDropdown, setShowItemDropdown] = useState(false);
   const [newBakeryName, setNewBakeryName] = useState("");
   const [newBakeryPhone, setNewBakeryPhone] = useState("");
+  const [newBakeryAddress, setNewBakeryAddress] = useState("");
   const [showAddBakery, setShowAddBakery] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const bakeryInputRef = useRef<HTMLInputElement>(null);

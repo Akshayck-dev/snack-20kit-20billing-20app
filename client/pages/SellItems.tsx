@@ -163,7 +163,19 @@ export default function SellItems() {
           <div className="lg:col-span-2">
             {/* Bakery Selection */}
             <div className="bg-white rounded-lg border border-border p-6 mb-6 shadow-sm">
-              <label className="block text-sm font-semibold text-foreground mb-3">Bakery</label>
+              <div className="flex items-center justify-between mb-3">
+                <label className="text-sm font-semibold text-foreground">Bakery</label>
+                <button
+                  onClick={() => {
+                    setShowAddBakery(true);
+                    setShowBakeryDropdown(false);
+                  }}
+                  className="text-xs font-semibold text-primary hover:text-primary/80 transition-colors flex items-center gap-1"
+                >
+                  <Plus className="h-4 w-4" />
+                  Add Bakery
+                </button>
+              </div>
               <div className="relative">
                 <input
                   ref={bakeryInputRef}

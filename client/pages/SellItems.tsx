@@ -22,6 +22,8 @@ export default function SellItems() {
   const [newBakeryAddress, setNewBakeryAddress] = useState("");
   const [showAddBakery, setShowAddBakery] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [lastSubmittedSale, setLastSubmittedSale] = useState<Sale | null>(null);
+  const [showShareDialog, setShowShareDialog] = useState(false);
   const bakeryInputRef = useRef<HTMLInputElement>(null);
 
   const filteredBakeries = bakeries.filter((b) =>

@@ -415,6 +415,71 @@ export default function SellItems() {
             </div>
           </div>
         </div>
+
+        {/* Share Dialog */}
+        {showShareDialog && lastSubmittedSale && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-bold text-foreground">Invoice Created</h2>
+                <button
+                  onClick={handleShareClose}
+                  className="p-1 hover:bg-secondary rounded-lg transition-colors"
+                >
+                  <X className="h-5 w-5 text-muted-foreground" />
+                </button>
+              </div>
+
+              <div className="bg-primary/10 rounded-lg p-4 mb-6">
+                <p className="text-sm text-muted-foreground mb-1">Invoice Number</p>
+                <p className="text-2xl font-bold text-primary">{lastSubmittedSale.invoiceNumber}</p>
+                <p className="text-sm text-muted-foreground mt-2">
+                  Bakery: {lastSubmittedSale.bakerySnapshot.name}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Amount: ₹{lastSubmittedSale.totalAmount.toFixed(2)}
+                </p>
+              </div>
+
+              <p className="text-sm text-muted-foreground mb-4">
+                Share this invoice with the bakery using WhatsApp or download for your records.
+              </p>
+
+              <div className="space-y-3">
+                <button
+                  onClick={handleShareWhatsApp}
+                  className="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
+                >
+                  <MessageCircle className="h-5 w-5" />
+                  Share via WhatsApp
+                </button>
+
+                <button
+                  onClick={() => openInvoicePDF(lastSubmittedSale)}
+                  className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
+                >
+                  <Send className="h-5 w-5" />
+                  View PDF
+                </button>
+
+                <button
+                  onClick={() => downloadInvoicePDF(lastSubmittedSale)}
+                  className="w-full bg-secondary hover:bg-secondary/80 text-foreground py-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
+                >
+                  <Download className="h-5 w-5" />
+                  Download PDF
+                </button>
+
+                <button
+                  onClick={handleShareClose}
+                  className="w-full bg-muted text-foreground py-2 rounded-lg font-semibold hover:bg-muted/80 transition-colors"
+                >
+                  Done
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

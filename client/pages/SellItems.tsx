@@ -383,7 +383,7 @@ export default function SellItems() {
                     className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     <Send className="h-5 w-5" />
-                    Send to WhatsApp
+                    Submit
                   </button>
                 </>
               ) : (

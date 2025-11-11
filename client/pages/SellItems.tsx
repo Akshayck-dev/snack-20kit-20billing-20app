@@ -170,9 +170,9 @@ export default function SellItems() {
                     setShowAddBakery(true);
                     setShowBakeryDropdown(false);
                   }}
-                  className="text-xs font-semibold text-primary hover:text-primary/80 transition-colors flex items-center gap-1"
+                  className="px-3 py-1.5 text-sm font-semibold text-primary bg-primary/10 hover:bg-primary/20 rounded-md transition-colors flex items-center gap-2"
                 >
-                  <Plus className="h-4 w-4" />
+                  <Plus className="h-5 w-5" />
                   Add Bakery
                 </button>
               </div>
@@ -301,7 +301,7 @@ export default function SellItems() {
                           className="w-full text-left px-4 py-3 hover:bg-secondary/50 border-b border-border last:border-b-0 transition-colors"
                         >
                           <p className="font-medium text-foreground">{item.name}</p>
-                          <p className="text-xs text-muted-foreground">₹{item.unitPrice}</p>
+                          <p className="text-xs text-muted-foreground">��{item.unitPrice}</p>
                         </button>
                       ))}
                     </div>

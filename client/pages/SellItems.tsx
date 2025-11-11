@@ -99,7 +99,7 @@ export default function SellItems() {
 
     const invoiceNumber = generateInvoiceNumber();
 
-    const sale = {
+    const sale: Sale = {
       id: Date.now().toString(),
       bakeryId: selectedBakery.id,
       bakerySnapshot: {
@@ -116,23 +116,37 @@ export default function SellItems() {
     addSale(sale);
     updateBakery(selectedBakery.id, { lastUsedAt: Date.now() });
 
+    setLastSubmittedSale(sale);
+    setShowShareDialog(true);
+    setIsSubmitting(false);
+
     toast.success(
-      `Invoice ${invoiceNumber} sent to ${selectedBakery.phone}`,
+      `Invoice ${invoiceNumber} created successfully!`,
       {
-        duration: 4000,
+        duration: 3000,
         icon: <CheckCircle className="h-5 w-5" />,
       }
     );
+  };
 
-    setTimeout(() => {
-      setSelectedBakery(null);
-      setSaleItems([]);
-      setSelectedItem(null);
-      setQuantity(1);
-      setBakerySearch("");
-      setItemSearch("");
-      setIsSubmitting(false);
-    }, 1500);
+  const handleShareClose = () => {
+    setShowShareDialog(false);
+    setLastSubmittedSale(null);
+    setSelectedBakery(null);
+    setSaleItems([]);
+    setSelectedItem(null);
+    setQuantity(1);
+    setBakerySearch("");
+    setItemSearch("");
+  };
+
+  const handleShareWhatsApp = () => {
+    if (!lastSubmittedSale) return;
+    const message = generateInvoiceMessage(lastSubmittedSale);
+    const encodedMessage = encodeURIComponent(message);
+    const phone = lastSubmittedSale.bakerySnapshot.phone.replace(/\D/g, "");
+    const whatsappLink = `https://wa.me/${phone}?text=${encodedMessage}`;
+    window.open(whatsappLink, "_blank");
   };
 
   const generateInvoiceMessage = (sale: any) => {

@@ -245,6 +245,7 @@ export default function SellItems() {
                         setShowAddBakery(false);
                         setNewBakeryName("");
                         setNewBakeryPhone("");
+                        setNewBakeryAddress("");
                       }}
                       className="flex-1 bg-secondary text-foreground py-2 rounded-lg font-semibold hover:bg-secondary/80 transition-colors"
                     >

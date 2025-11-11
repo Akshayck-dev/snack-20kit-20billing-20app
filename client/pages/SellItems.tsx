@@ -286,9 +286,10 @@ export default function SellItems() {
                     value={itemSearch}
                     onChange={(e) => setItemSearch(e.target.value)}
                     onFocus={() => setShowItemDropdown(true)}
+                    onClick={() => setShowItemDropdown(true)}
                     className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 bg-input text-foreground"
                   />
-                  {showItemDropdown && (
+                  {showItemDropdown && filteredItems.length > 0 && (
                     <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-border rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
                       {filteredItems.map((item) => (
                         <button

@@ -157,7 +157,7 @@ export default function SellItems() {
             </Link>
             <h1 className="text-2xl md:text-3xl font-bold text-foreground">Add Sale</h1>
           </div>
-          <p className="text-muted-foreground">Select a bakery, add items, and send invoice via WhatsApp</p>
+          <p className="text-muted-foreground">Select a bakery, add items, and submit to send invoice</p>
         </div>
       </div>
 

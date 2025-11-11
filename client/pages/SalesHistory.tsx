@@ -134,20 +134,18 @@ export default function SalesHistoryPage() {
 
                     <div className="flex gap-2">
                       <button
-                        onClick={() => handleResendWhatsApp(sale)}
-                        className="flex-1 px-4 py-2 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+                        onClick={() => openInvoicePDF(sale)}
+                        className="flex-1 px-4 py-2 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
                       >
-                        Resend to WhatsApp
+                        <FileText className="h-4 w-4" />
+                        View PDF
                       </button>
                       <button
-                        onClick={() => {
-                          const invoiceText = generateInvoiceText(sale);
-                          navigator.clipboard.writeText(invoiceText);
-                          alert("Invoice copied to clipboard");
-                        }}
-                        className="flex-1 px-4 py-2 bg-secondary text-foreground rounded-lg font-semibold hover:bg-secondary/80 transition-colors"
+                        onClick={() => downloadInvoicePDF(sale)}
+                        className="flex-1 px-4 py-2 bg-secondary text-foreground rounded-lg font-semibold hover:bg-secondary/80 transition-colors flex items-center justify-center gap-2"
                       >
-                        Copy Invoice
+                        <Download className="h-4 w-4" />
+                        Download
                       </button>
                     </div>
 

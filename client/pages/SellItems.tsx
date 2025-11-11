@@ -51,7 +51,7 @@ export default function SellItems() {
     setNewBakeryAddress("");
     setShowAddBakery(false);
     setBakerySearch("");
-    setShowBakeryDropdown(false);
+    setShowBakeryDropdown(true);
   };
 
   const handleAddItem = () => {

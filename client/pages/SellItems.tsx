@@ -238,7 +238,7 @@ export default function SellItems() {
                       onClick={handleAddBakery}
                       className="flex-1 bg-primary text-primary-foreground py-2 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
                     >
-                      Add
+                      Add Bakery
                     </button>
                     <button
                       onClick={() => {

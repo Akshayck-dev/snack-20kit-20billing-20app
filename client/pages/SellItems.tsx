@@ -226,6 +226,13 @@ export default function SellItems() {
                     onChange={(e) => setNewBakeryPhone(e.target.value)}
                     className="w-full px-3 py-2 border border-border rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-primary/50 bg-white text-foreground"
                   />
+                  <input
+                    type="text"
+                    placeholder="Address (optional)"
+                    value={newBakeryAddress}
+                    onChange={(e) => setNewBakeryAddress(e.target.value)}
+                    className="w-full px-3 py-2 border border-border rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-primary/50 bg-white text-foreground"
+                  />
                   <div className="flex gap-2">
                     <button
                       onClick={handleAddBakery}

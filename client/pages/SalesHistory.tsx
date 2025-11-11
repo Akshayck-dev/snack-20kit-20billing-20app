@@ -16,14 +16,21 @@ export default function SalesHistoryPage() {
     return sales.filter((sale) => {
       const saleDate = new Date(sale.createdAt).toLocaleDateString("en-IN");
       if (filterDate && saleDate !== filterDate) return false;
-      if (filterBakery && !sale.bakerySnapshot.name.toLowerCase().includes(filterBakery.toLowerCase())) {
+      if (
+        filterBakery &&
+        !sale.bakerySnapshot.name
+          .toLowerCase()
+          .includes(filterBakery.toLowerCase())
+      ) {
         return false;
       }
       return true;
     });
   }, [sales, filterDate, filterBakery]);
 
-  const uniqueBakeries = Array.from(new Set(sales.map((s) => s.bakerySnapshot.name))).sort();
+  const uniqueBakeries = Array.from(
+    new Set(sales.map((s) => s.bakerySnapshot.name)),
+  ).sort();
 
   const generateInvoiceText = (sale: any) => {
     const date = new Date(sale.createdAt).toLocaleDateString("en-IN");
@@ -50,8 +57,12 @@ export default function SalesHistoryPage() {
       {/* Header */}
       <div className="bg-gradient-to-br from-primary/10 to-accent/10 border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">Sales History</h1>
-          <p className="text-muted-foreground">View and manage your past sales and invoices.</p>
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
+            Sales History
+          </h1>
+          <p className="text-muted-foreground">
+            View and manage your past sales and invoices.
+          </p>
         </div>
       </div>
 
@@ -82,22 +93,33 @@ export default function SalesHistoryPage() {
         <div className="space-y-4">
           {filteredSales.length > 0 ? (
             filteredSales.map((sale) => (
-              <div key={sale.id} className="bg-white rounded-lg border border-border shadow-sm overflow-hidden">
+              <div
+                key={sale.id}
+                className="bg-white rounded-lg border border-border shadow-sm overflow-hidden"
+              >
                 <button
-                  onClick={() => setExpandedId(expandedId === sale.id ? null : sale.id)}
+                  onClick={() =>
+                    setExpandedId(expandedId === sale.id ? null : sale.id)
+                  }
                   className="w-full p-6 flex items-center justify-between hover:bg-secondary/30 transition-colors"
                 >
                   <div className="flex-1 text-left">
                     <div className="flex items-center gap-3">
-                      <h3 className="font-bold text-foreground text-lg">{sale.bakerySnapshot.name}</h3>
+                      <h3 className="font-bold text-foreground text-lg">
+                        {sale.bakerySnapshot.name}
+                      </h3>
                       <span className="text-xs font-semibold bg-primary/10 text-primary px-2 py-1 rounded">
                         {sale.invoiceNumber}
                       </span>
                     </div>
                     <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
-                      <span>{new Date(sale.createdAt).toLocaleDateString("en-IN")}</span>
+                      <span>
+                        {new Date(sale.createdAt).toLocaleDateString("en-IN")}
+                      </span>
                       <span>{sale.items.length} items</span>
-                      <span className="font-semibold text-primary">₹{sale.totalAmount.toFixed(2)}</span>
+                      <span className="font-semibold text-primary">
+                        ₹{sale.totalAmount.toFixed(2)}
+                      </span>
                     </div>
                   </div>
                   <div className="ml-4">
@@ -113,22 +135,33 @@ export default function SalesHistoryPage() {
                   <div className="border-t border-border bg-secondary/10 p-6">
                     <div className="space-y-3 mb-6">
                       {sale.items.map((item, idx) => (
-                        <div key={idx} className="flex items-center justify-between">
+                        <div
+                          key={idx}
+                          className="flex items-center justify-between"
+                        >
                           <div>
-                            <p className="font-medium text-foreground">{item.name}</p>
+                            <p className="font-medium text-foreground">
+                              {item.name}
+                            </p>
                             <p className="text-sm text-muted-foreground">
                               {item.qty} × ₹{item.unitPrice}
                             </p>
                           </div>
-                          <p className="font-semibold text-foreground">₹{item.amount.toFixed(2)}</p>
+                          <p className="font-semibold text-foreground">
+                            ₹{item.amount.toFixed(2)}
+                          </p>
                         </div>
                       ))}
                     </div>
 
                     <div className="border-t border-border pt-4 mb-4">
                       <div className="flex items-center justify-between">
-                        <span className="font-semibold text-foreground">Total Amount</span>
-                        <span className="text-2xl font-bold text-primary">₹{sale.totalAmount.toFixed(2)}</span>
+                        <span className="font-semibold text-foreground">
+                          Total Amount
+                        </span>
+                        <span className="text-2xl font-bold text-primary">
+                          ₹{sale.totalAmount.toFixed(2)}
+                        </span>
                       </div>
                     </div>
 
@@ -150,14 +183,20 @@ export default function SalesHistoryPage() {
                     </div>
 
                     <div className="mt-3 p-3 bg-white rounded-lg border border-border">
-                      <p className="text-xs font-medium text-muted-foreground mb-2">Status</p>
+                      <p className="text-xs font-medium text-muted-foreground mb-2">
+                        Status
+                      </p>
                       <div className="flex items-center gap-2">
                         <div
                           className={`w-2 h-2 rounded-full ${
-                            sale.status === "sent" ? "bg-green-500" : "bg-yellow-500"
+                            sale.status === "sent"
+                              ? "bg-green-500"
+                              : "bg-yellow-500"
                           }`}
                         />
-                        <span className="text-sm font-medium text-foreground capitalize">{sale.status}</span>
+                        <span className="text-sm font-medium text-foreground capitalize">
+                          {sale.status}
+                        </span>
                       </div>
                     </div>
                   </div>

@@ -163,7 +163,7 @@ export function generateInvoicePDF(sale: Sale) {
                 <td>${item.unitPrice.toFixed(2)}</td>
                 <td>${item.amount.toFixed(2)}</td>
               </tr>
-            `
+            `,
               )
               .join("")}
           </tbody>

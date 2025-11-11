@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { getSales } from "@/lib/storage";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, FileText, Download } from "lucide-react";
+import { openInvoicePDF, downloadInvoicePDF } from "@/lib/invoice";
 
 export default function SalesHistoryPage() {
   const [expandedId, setExpandedId] = useState<string | null>(null);

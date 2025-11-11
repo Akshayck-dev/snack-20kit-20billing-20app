@@ -1,8 +1,9 @@
 import { useState, useRef } from "react";
-import { ArrowLeft, Plus, Trash2, Send } from "lucide-react";
+import { ArrowLeft, Plus, Trash2, Send, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { getBakeries, getItems, addBakery, addSale, updateBakery, generateInvoiceNumber } from "@/lib/storage";
 import { Bakery, Item, SaleItem } from "@/lib/types";
+import { toast } from "sonner";
 
 export default function SellItems() {
   const [bakeries, setBakeries] = useState<Bakery[]>(getBakeries());

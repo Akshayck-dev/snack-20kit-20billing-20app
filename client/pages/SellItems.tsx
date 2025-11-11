@@ -38,6 +38,7 @@ export default function SellItems() {
       id: Date.now().toString(),
       name: newBakeryName,
       phone: newBakeryPhone,
+      address: newBakeryAddress,
       lastUsedAt: Date.now(),
       createdAt: Date.now(),
     };
@@ -47,6 +48,7 @@ export default function SellItems() {
     setSelectedBakery(newBakery);
     setNewBakeryName("");
     setNewBakeryPhone("");
+    setNewBakeryAddress("");
     setShowAddBakery(false);
     setBakerySearch("");
     setShowBakeryDropdown(false);

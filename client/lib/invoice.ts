@@ -1,0 +1,210 @@
+import { Sale } from "./types";
+
+export function generateInvoicePDF(sale: Sale) {
+  const date = new Date(sale.createdAt);
+  const formattedDate = date.toLocaleDateString("en-IN");
+  const formattedTime = date.toLocaleTimeString("en-IN");
+
+  let invoiceHTML = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Invoice ${sale.invoiceNumber}</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 20px;
+          background: white;
+        }
+        .invoice-container {
+          border: 1px solid #ddd;
+          padding: 30px;
+          border-radius: 8px;
+        }
+        .header {
+          text-align: center;
+          margin-bottom: 30px;
+          border-bottom: 2px solid #FF9500;
+          padding-bottom: 20px;
+        }
+        .company-name {
+          font-size: 28px;
+          font-weight: bold;
+          color: #333;
+        }
+        .invoice-title {
+          font-size: 18px;
+          color: #666;
+          margin-top: 10px;
+        }
+        .invoice-number {
+          font-size: 16px;
+          font-weight: bold;
+          color: #FF9500;
+          margin-top: 10px;
+        }
+        .details-section {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 30px;
+        }
+        .detail-box {
+          flex: 1;
+        }
+        .detail-box h3 {
+          font-size: 12px;
+          color: #999;
+          text-transform: uppercase;
+          margin: 0 0 5px 0;
+        }
+        .detail-box p {
+          margin: 5px 0;
+          font-size: 14px;
+          color: #333;
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin: 30px 0;
+        }
+        th {
+          background: #f5f5f5;
+          border: 1px solid #ddd;
+          padding: 10px;
+          text-align: left;
+          font-weight: bold;
+          color: #333;
+        }
+        td {
+          border: 1px solid #ddd;
+          padding: 10px;
+          color: #333;
+        }
+        tr:nth-child(even) {
+          background: #fafafa;
+        }
+        .total-section {
+          margin-top: 30px;
+          text-align: right;
+        }
+        .total-amount {
+          font-size: 24px;
+          font-weight: bold;
+          color: #FF9500;
+          background: #FFF9E6;
+          padding: 15px 20px;
+          border-radius: 5px;
+          display: inline-block;
+          margin-top: 10px;
+        }
+        .footer {
+          text-align: center;
+          margin-top: 40px;
+          color: #999;
+          font-size: 12px;
+          border-top: 1px solid #ddd;
+          padding-top: 20px;
+        }
+        @media print {
+          body {
+            background: white;
+          }
+          .invoice-container {
+            border: none;
+            box-shadow: none;
+          }
+        }
+      </style>
+    </head>
+    <body>
+      <div class="invoice-container">
+        <div class="header">
+          <div class="company-name">🍔 Snack Kit</div>
+          <div class="invoice-title">Sales Invoice</div>
+          <div class="invoice-number">${sale.invoiceNumber}</div>
+        </div>
+
+        <div class="details-section">
+          <div class="detail-box">
+            <h3>Bakery</h3>
+            <p><strong>${sale.bakerySnapshot.name}</strong></p>
+            <p>${sale.bakerySnapshot.phone}</p>
+          </div>
+          <div class="detail-box">
+            <h3>Date & Time</h3>
+            <p>${formattedDate}</p>
+            <p>${formattedTime}</p>
+          </div>
+          <div class="detail-box">
+            <h3>Invoice ID</h3>
+            <p>${sale.invoiceNumber}</p>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Item Name</th>
+              <th>Quantity</th>
+              <th>Unit Price (₹)</th>
+              <th>Amount (₹)</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${sale.items
+              .map(
+                (item) => `
+              <tr>
+                <td>${item.name}</td>
+                <td>${item.qty}</td>
+                <td>${item.unitPrice.toFixed(2)}</td>
+                <td>${item.amount.toFixed(2)}</td>
+              </tr>
+            `
+              )
+              .join("")}
+          </tbody>
+        </table>
+
+        <div class="total-section">
+          <div style="font-size: 14px; color: #666; margin-bottom: 10px;">
+            Total Quantity: <strong>${sale.items.reduce((sum, item) => sum + item.qty, 0)} units</strong>
+          </div>
+          <div class="total-amount">
+            ₹${sale.totalAmount.toFixed(2)}
+          </div>
+        </div>
+
+        <div class="footer">
+          <p>Thank you for your business!</p>
+          <p>This invoice was generated by Snack Kit</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+
+  return invoiceHTML;
+}
+
+export function openInvoicePDF(sale: Sale) {
+  const invoiceHTML = generateInvoicePDF(sale);
+  const blob = new Blob([invoiceHTML], { type: "text/html" });
+  const url = URL.createObjectURL(blob);
+  const win = window.open(url, "_blank");
+  return win;
+}
+
+export function downloadInvoicePDF(sale: Sale) {
+  const invoiceHTML = generateInvoicePDF(sale);
+  const blob = new Blob([invoiceHTML], { type: "text/html" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `Invoice-${sale.invoiceNumber}.html`;
+  link.click();
+  URL.revokeObjectURL(url);
+}

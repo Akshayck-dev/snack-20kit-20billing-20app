@@ -106,17 +106,20 @@ export default function SellItems() {
       items: saleItems,
       totalAmount,
       createdAt: Date.now(),
-      status: "pending" as const,
+      status: "sent" as const,
       invoiceNumber,
     };
 
     addSale(sale);
     updateBakery(selectedBakery.id, { lastUsedAt: Date.now() });
 
-    const invoiceMessage = generateInvoiceMessage(sale);
-    const whatsappLink = `https://wa.me/${selectedBakery.phone.replace(/\D/g, "")}?text=${encodeURIComponent(invoiceMessage)}`;
-
-    window.open(whatsappLink, "_blank");
+    toast.success(
+      `Invoice ${invoiceNumber} sent to ${selectedBakery.phone}`,
+      {
+        duration: 4000,
+        icon: <CheckCircle className="h-5 w-5" />,
+      }
+    );
 
     setTimeout(() => {
       setSelectedBakery(null);
@@ -126,7 +129,7 @@ export default function SellItems() {
       setBakerySearch("");
       setItemSearch("");
       setIsSubmitting(false);
-    }, 500);
+    }, 1500);
   };
 
   const generateInvoiceMessage = (sale: any) => {

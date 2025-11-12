@@ -22,7 +22,7 @@ export default function BakeriesPage() {
     loadBakeries();
   }, []);
 
-  const handleAddBakery = () => {
+  const handleAddBakery = async () => {
     if (!formData.name || !formData.phone) return;
 
     const newBakery: Bakery = {
@@ -34,10 +34,14 @@ export default function BakeriesPage() {
       createdAt: Date.now(),
     };
 
-    addBakery(newBakery);
-    setBakeries([...bakeries, newBakery]);
-    setFormData({ name: "", phone: "", address: "" });
-    setShowAddForm(false);
+    try {
+      await addBakery(newBakery);
+      setBakeries([...bakeries, newBakery]);
+      setFormData({ name: "", phone: "", address: "" });
+      setShowAddForm(false);
+    } catch (error) {
+      console.error("Error adding bakery:", error);
+    }
   };
 
   const handleUpdate = () => {

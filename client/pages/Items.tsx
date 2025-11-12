@@ -22,7 +22,7 @@ export default function ItemsPage() {
     loadItems();
   }, []);
 
-  const handleAddItem = () => {
+  const handleAddItem = async () => {
     if (!formData.name || !formData.unitPrice) return;
 
     const newItem: Item = {
@@ -33,37 +33,49 @@ export default function ItemsPage() {
       createdAt: Date.now(),
     };
 
-    addItem(newItem);
-    setItems([...items, newItem]);
-    setFormData({ name: "", unitPrice: "", sku: "" });
-    setShowAddForm(false);
+    try {
+      await addItem(newItem);
+      setItems([...items, newItem]);
+      setFormData({ name: "", unitPrice: "", sku: "" });
+      setShowAddForm(false);
+    } catch (error) {
+      console.error("Error adding item:", error);
+    }
   };
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
     if (!editingId || !formData.name || !formData.unitPrice) return;
 
-    updateItem(editingId, {
-      name: formData.name,
-      unitPrice: parseFloat(formData.unitPrice),
-      sku: formData.sku,
-    });
+    try {
+      await updateItem(editingId, {
+        name: formData.name,
+        unitPrice: parseFloat(formData.unitPrice),
+        sku: formData.sku,
+      });
 
-    setItems(
-      items.map((i) =>
-        i.id === editingId
-          ? { ...i, name: formData.name, unitPrice: parseFloat(formData.unitPrice), sku: formData.sku }
-          : i
-      )
-    );
+      setItems(
+        items.map((i) =>
+          i.id === editingId
+            ? { ...i, name: formData.name, unitPrice: parseFloat(formData.unitPrice), sku: formData.sku }
+            : i
+        )
+      );
 
-    setFormData({ name: "", unitPrice: "", sku: "" });
-    setEditingId(null);
+      setFormData({ name: "", unitPrice: "", sku: "" });
+      setEditingId(null);
+    } catch (error) {
+      console.error("Error updating item:", error);
+    }
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this item?")) {
-      deleteItem(id);
-      setItems(items.filter((i) => i.id !== id));
+      try {
+        await deleteItem(id);
+        setItems(items.filter((i) => i.id !== id));
+      } catch (error) {
+        console.error("Error deleting item:", error);
+      }
     }
   };
 

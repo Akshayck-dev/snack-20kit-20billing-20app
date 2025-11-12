@@ -35,7 +35,7 @@ export async function getBakeries(): Promise<Bakery[]> {
     const { data, error } = await supabase
       .from("bakeries")
       .select("*")
-      .order("lastUsedAt", { ascending: false });
+      .order("lastusedat", { ascending: false });
 
     if (error) throw error;
     return data || [];
@@ -87,7 +87,7 @@ export async function getItems(): Promise<Item[]> {
     const { data, error } = await supabase
       .from("items")
       .select("*")
-      .order("createdAt", { ascending: false });
+      .order("createdat", { ascending: false });
 
     if (error) throw error;
     return data || [];
@@ -139,14 +139,20 @@ export async function getSales(): Promise<Sale[]> {
     const { data, error } = await supabase
       .from("sales")
       .select("*")
-      .order("createdAt", { ascending: false });
+      .order("createdat", { ascending: false });
 
     if (error) throw error;
 
     return (data || []).map((sale: any) => ({
-      ...sale,
+      id: sale.id,
+      bakeryId: sale.bakeryid,
+      bakerySnapshot: sale.bakerysnapshot || {},
       items: sale.items || [],
-      bakerySnapshot: sale.bakerySnapshot || {},
+      totalAmount: sale.totalamount,
+      createdAt: sale.createdat,
+      status: sale.status,
+      invoiceId: sale.invoiceid,
+      invoiceNumber: sale.invoicenumber,
     }));
   } catch (error: any) {
     console.error("Error fetching sales:", error?.message || error);

@@ -44,29 +44,37 @@ export default function BakeriesPage() {
     }
   };
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
     if (!editingId || !formData.name || !formData.phone) return;
 
-    updateBakery(editingId, {
-      name: formData.name,
-      phone: formData.phone,
-      address: formData.address,
-    });
+    try {
+      await updateBakery(editingId, {
+        name: formData.name,
+        phone: formData.phone,
+        address: formData.address,
+      });
 
-    setBakeries(
-      bakeries.map((b) =>
-        b.id === editingId ? { ...b, name: formData.name, phone: formData.phone, address: formData.address } : b
-      )
-    );
+      setBakeries(
+        bakeries.map((b) =>
+          b.id === editingId ? { ...b, name: formData.name, phone: formData.phone, address: formData.address } : b
+        )
+      );
 
-    setFormData({ name: "", phone: "", address: "" });
-    setEditingId(null);
+      setFormData({ name: "", phone: "", address: "" });
+      setEditingId(null);
+    } catch (error) {
+      console.error("Error updating bakery:", error);
+    }
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this bakery?")) {
-      deleteBakery(id);
-      setBakeries(bakeries.filter((b) => b.id !== id));
+      try {
+        await deleteBakery(id);
+        setBakeries(bakeries.filter((b) => b.id !== id));
+      } catch (error) {
+        console.error("Error deleting bakery:", error);
+      }
     }
   };
 

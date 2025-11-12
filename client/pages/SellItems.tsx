@@ -23,8 +23,8 @@ import { toast } from "sonner";
 import { openInvoicePDF, downloadInvoicePDF } from "@/lib/invoice";
 
 export default function SellItems() {
-  const [bakeries, setBakeries] = useState<Bakery[]>(getBakeries());
-  const [items, setItems] = useState<Item[]>(getItems());
+  const [bakeries, setBakeries] = useState<Bakery[]>([]);
+  const [items, setItems] = useState<Item[]>([]);
   const [selectedBakery, setSelectedBakery] = useState<Bakery | null>(null);
   const [saleItems, setSaleItems] = useState<SaleItem[]>([]);
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);

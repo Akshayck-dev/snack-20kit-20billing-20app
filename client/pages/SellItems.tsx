@@ -186,6 +186,7 @@ export default function SellItems() {
     setQuantity(1);
     setBakerySearch("");
     setItemSearch("");
+    setIsSubmitting(false);
   };
 
   const handleShareWhatsApp = () => {

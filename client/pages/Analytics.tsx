@@ -1,10 +1,23 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { getSales } from "@/lib/storage";
 import { TrendingUp, Calendar } from "lucide-react";
 
 export default function AnalyticsPage() {
   const [viewType, setViewType] = useState<"daily" | "monthly">("daily");
-  const sales = useMemo(() => getSales(), []);
+  const [sales, setSales] = useState<any[]>([]);
+
+  useEffect(() => {
+    const loadSales = async () => {
+      try {
+        const data = await getSales();
+        setSales(data);
+      } catch (error) {
+        console.error("Error loading sales:", error);
+      }
+    };
+
+    loadSales();
+  }, []);
 
   const getDateKey = (timestamp: number) => {
     return new Date(timestamp).toLocaleDateString("en-IN");

@@ -42,6 +42,24 @@ export default function SellItems() {
   const [showShareDialog, setShowShareDialog] = useState(false);
   const bakeryInputRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const [bakeriesData, itemsData] = await Promise.all([
+          getBakeries(),
+          getItems(),
+        ]);
+        setBakeries(bakeriesData);
+        setItems(itemsData);
+      } catch (error) {
+        console.error("Error loading data:", error);
+        toast.error("Failed to load data");
+      }
+    };
+
+    loadData();
+  }, []);
+
   const filteredBakeries = bakeries.filter(
     (b) =>
       b.name.toLowerCase().includes(bakerySearch.toLowerCase()) ||

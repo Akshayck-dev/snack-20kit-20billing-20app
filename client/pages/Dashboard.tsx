@@ -10,9 +10,22 @@ export default function Dashboard() {
   const [recentBakeries, setRecentBakeries] = useState<Bakery[]>([]);
 
   useEffect(() => {
-    setStats(getTodayStats());
-    setTopItems(getTopItemsToday());
-    setRecentBakeries(getRecentlyUsedBakeries());
+    const loadData = async () => {
+      try {
+        const [statsData, itemsData, bakeriesData] = await Promise.all([
+          getTodayStats(),
+          getTopItemsToday(),
+          getRecentlyUsedBakeries(),
+        ]);
+        setStats(statsData);
+        setTopItems(itemsData);
+        setRecentBakeries(bakeriesData);
+      } catch (error) {
+        console.error("Error loading dashboard data:", error);
+      }
+    };
+
+    loadData();
   }, []);
 
   return (

@@ -23,8 +23,8 @@ export async function generateInvoiceNumber(): Promise<string> {
     }
 
     return `INV-${nextNumber}`;
-  } catch (error) {
-    console.error("Error generating invoice number:", error);
+  } catch (error: any) {
+    console.error("Error generating invoice number:", error?.message || error);
     throw error;
   }
 }
@@ -39,8 +39,8 @@ export async function getBakeries(): Promise<Bakery[]> {
 
     if (error) throw error;
     return data || [];
-  } catch (error) {
-    console.error("Error fetching bakeries:", error);
+  } catch (error: any) {
+    console.error("Error fetching bakeries:", error?.message || error);
     throw error;
   }
 }
@@ -49,8 +49,8 @@ export async function addBakery(bakery: Bakery): Promise<void> {
   try {
     const { error } = await supabase.from("bakeries").insert([bakery]);
     if (error) throw error;
-  } catch (error) {
-    console.error("Error adding bakery:", error);
+  } catch (error: any) {
+    console.error("Error adding bakery:", error?.message || error);
     throw error;
   }
 }
@@ -65,8 +65,8 @@ export async function updateBakery(
       .update(updates)
       .eq("id", id);
     if (error) throw error;
-  } catch (error) {
-    console.error("Error updating bakery:", error);
+  } catch (error: any) {
+    console.error("Error updating bakery:", error?.message || error);
     throw error;
   }
 }
@@ -75,8 +75,8 @@ export async function deleteBakery(id: string): Promise<void> {
   try {
     const { error } = await supabase.from("bakeries").delete().eq("id", id);
     if (error) throw error;
-  } catch (error) {
-    console.error("Error deleting bakery:", error);
+  } catch (error: any) {
+    console.error("Error deleting bakery:", error?.message || error);
     throw error;
   }
 }
@@ -91,8 +91,8 @@ export async function getItems(): Promise<Item[]> {
 
     if (error) throw error;
     return data || [];
-  } catch (error) {
-    console.error("Error fetching items:", error);
+  } catch (error: any) {
+    console.error("Error fetching items:", error?.message || error);
     throw error;
   }
 }
@@ -101,8 +101,8 @@ export async function addItem(item: Item): Promise<void> {
   try {
     const { error } = await supabase.from("items").insert([item]);
     if (error) throw error;
-  } catch (error) {
-    console.error("Error adding item:", error);
+  } catch (error: any) {
+    console.error("Error adding item:", error?.message || error);
     throw error;
   }
 }
@@ -117,8 +117,8 @@ export async function updateItem(
       .update(updates)
       .eq("id", id);
     if (error) throw error;
-  } catch (error) {
-    console.error("Error updating item:", error);
+  } catch (error: any) {
+    console.error("Error updating item:", error?.message || error);
     throw error;
   }
 }
@@ -127,8 +127,8 @@ export async function deleteItem(id: string): Promise<void> {
   try {
     const { error } = await supabase.from("items").delete().eq("id", id);
     if (error) throw error;
-  } catch (error) {
-    console.error("Error deleting item:", error);
+  } catch (error: any) {
+    console.error("Error deleting item:", error?.message || error);
     throw error;
   }
 }
@@ -148,8 +148,8 @@ export async function getSales(): Promise<Sale[]> {
       items: sale.items || [],
       bakerySnapshot: sale.bakerySnapshot || {},
     }));
-  } catch (error) {
-    console.error("Error fetching sales:", error);
+  } catch (error: any) {
+    console.error("Error fetching sales:", error?.message || error);
     throw error;
   }
 }
@@ -158,8 +158,8 @@ export async function addSale(sale: Sale): Promise<void> {
   try {
     const { error } = await supabase.from("sales").insert([sale]);
     if (error) throw error;
-  } catch (error) {
-    console.error("Error adding sale:", error);
+  } catch (error: any) {
+    console.error("Error adding sale:", error?.message || error);
     throw error;
   }
 }
@@ -174,8 +174,8 @@ export async function updateSale(
       .update(updates)
       .eq("id", id);
     if (error) throw error;
-  } catch (error) {
-    console.error("Error updating sale:", error);
+  } catch (error: any) {
+    console.error("Error updating sale:", error?.message || error);
     throw error;
   }
 }
@@ -187,8 +187,8 @@ export async function getAdmin(): Promise<Admin | null> {
 
     if (error && error.code !== "PGRST116") throw error;
     return data || null;
-  } catch (error) {
-    console.error("Error fetching admin:", error);
+  } catch (error: any) {
+    console.error("Error fetching admin:", error?.message || error);
     throw error;
   }
 }
@@ -207,8 +207,8 @@ export async function saveAdmin(admin: Admin): Promise<void> {
       const { error } = await supabase.from("admin").insert([admin]);
       if (error) throw error;
     }
-  } catch (error) {
-    console.error("Error saving admin:", error);
+  } catch (error: any) {
+    console.error("Error saving admin:", error?.message || error);
     throw error;
   }
 }
@@ -227,8 +227,8 @@ export async function getTodaySales(): Promise<Sale[]> {
       saleDate.setHours(0, 0, 0, 0);
       return saleDate.getTime() === todayTime;
     });
-  } catch (error) {
-    console.error("Error fetching today's sales:", error);
+  } catch (error: any) {
+    console.error("Error fetching today's sales:", error?.message || error);
     throw error;
   }
 }
@@ -248,8 +248,8 @@ export async function getTodayStats() {
       totalQty,
       uniqueBakeries,
     };
-  } catch (error) {
-    console.error("Error fetching today's stats:", error);
+  } catch (error: any) {
+    console.error("Error fetching today's stats:", error?.message || error);
     throw error;
   }
 }
@@ -269,8 +269,8 @@ export async function getTopItemsToday(): Promise<{ name: string; qty: number }[
       .map(([name, qty]) => ({ name, qty }))
       .sort((a, b) => b.qty - a.qty)
       .slice(0, 5);
-  } catch (error) {
-    console.error("Error fetching top items:", error);
+  } catch (error: any) {
+    console.error("Error fetching top items:", error?.message || error);
     throw error;
   }
 }
@@ -279,8 +279,8 @@ export async function getRecentlyUsedBakeries(limit = 5): Promise<Bakery[]> {
   try {
     const bakeries = await getBakeries();
     return bakeries.slice(0, limit);
-  } catch (error) {
-    console.error("Error fetching recently used bakeries:", error);
+  } catch (error: any) {
+    console.error("Error fetching recently used bakeries:", error?.message || error);
     throw error;
   }
 }

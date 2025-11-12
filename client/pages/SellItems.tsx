@@ -141,33 +141,40 @@ export default function SellItems() {
 
     setIsSubmitting(true);
 
-    const invoiceNumber = generateInvoiceNumber();
+    try {
+      const invoiceNumber = await generateInvoiceNumber();
 
-    const sale: Sale = {
-      id: Date.now().toString(),
-      bakeryId: selectedBakery.id,
-      bakerySnapshot: {
-        name: selectedBakery.name,
-        phone: selectedBakery.phone,
-      },
-      items: saleItems,
-      totalAmount,
-      createdAt: Date.now(),
-      status: "sent" as const,
-      invoiceNumber,
-    };
+      const sale: Sale = {
+        id: Date.now().toString(),
+        bakeryId: selectedBakery.id,
+        bakerySnapshot: {
+          name: selectedBakery.name,
+          phone: selectedBakery.phone,
+        },
+        items: saleItems,
+        totalAmount,
+        createdAt: Date.now(),
+        status: "sent" as const,
+        invoiceNumber,
+      };
 
-    addSale(sale);
-    updateBakery(selectedBakery.id, { lastUsedAt: Date.now() });
+      await Promise.all([
+        addSale(sale),
+        updateBakery(selectedBakery.id, { lastUsedAt: Date.now() }),
+      ]);
 
-    setLastSubmittedSale(sale);
-    setShowShareDialog(true);
-    setIsSubmitting(false);
+      setLastSubmittedSale(sale);
+      setShowShareDialog(true);
 
-    toast.success(`Invoice ${invoiceNumber} created successfully!`, {
-      duration: 3000,
-      icon: <CheckCircle className="h-5 w-5" />,
-    });
+      toast.success(`Invoice ${invoiceNumber} created successfully!`, {
+        duration: 3000,
+        icon: <CheckCircle className="h-5 w-5" />,
+      });
+    } catch (error) {
+      console.error("Error submitting sale:", error);
+      toast.error("Failed to create invoice");
+      setIsSubmitting(false);
+    }
   };
 
   const handleShareClose = () => {

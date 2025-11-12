@@ -10,7 +10,16 @@ export default function ItemsPage() {
   const [formData, setFormData] = useState({ name: "", unitPrice: "", sku: "" });
 
   useEffect(() => {
-    setItems(getItems());
+    const loadItems = async () => {
+      try {
+        const data = await getItems();
+        setItems(data);
+      } catch (error) {
+        console.error("Error loading items:", error);
+      }
+    };
+
+    loadItems();
   }, []);
 
   const handleAddItem = () => {

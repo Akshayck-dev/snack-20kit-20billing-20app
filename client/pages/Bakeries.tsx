@@ -10,7 +10,16 @@ export default function BakeriesPage() {
   const [formData, setFormData] = useState({ name: "", phone: "", address: "" });
 
   useEffect(() => {
-    setBakeries(getBakeries());
+    const loadBakeries = async () => {
+      try {
+        const data = await getBakeries();
+        setBakeries(data);
+      } catch (error) {
+        console.error("Error loading bakeries:", error);
+      }
+    };
+
+    loadBakeries();
   }, []);
 
   const handleAddBakery = () => {

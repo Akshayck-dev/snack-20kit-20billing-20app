@@ -70,7 +70,7 @@ export default function SellItems() {
     i.name.toLowerCase().includes(itemSearch.toLowerCase()),
   );
 
-  const handleAddBakery = () => {
+  const handleAddBakery = async () => {
     if (!newBakeryName || !newBakeryPhone) return;
 
     const newBakery: Bakery = {
@@ -82,15 +82,21 @@ export default function SellItems() {
       createdAt: Date.now(),
     };
 
-    addBakery(newBakery);
-    setBakeries([...bakeries, newBakery]);
-    setSelectedBakery(newBakery);
-    setNewBakeryName("");
-    setNewBakeryPhone("");
-    setNewBakeryAddress("");
-    setShowAddBakery(false);
-    setBakerySearch("");
-    setShowBakeryDropdown(true);
+    try {
+      await addBakery(newBakery);
+      setBakeries([...bakeries, newBakery]);
+      setSelectedBakery(newBakery);
+      setNewBakeryName("");
+      setNewBakeryPhone("");
+      setNewBakeryAddress("");
+      setShowAddBakery(false);
+      setBakerySearch("");
+      setShowBakeryDropdown(true);
+      toast.success("Bakery added successfully");
+    } catch (error) {
+      console.error("Error adding bakery:", error);
+      toast.error("Failed to add bakery");
+    }
   };
 
   const handleAddItem = () => {

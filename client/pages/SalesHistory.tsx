@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { getSales } from "@/lib/storage";
 import { ChevronDown, ChevronUp, FileText, Download } from "lucide-react";
 import { openInvoicePDF, downloadInvoicePDF } from "@/lib/invoice";
@@ -7,9 +7,19 @@ export default function SalesHistoryPage() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [filterDate, setFilterDate] = useState<string>("");
   const [filterBakery, setFilterBakery] = useState<string>("");
+  const [sales, setSales] = useState<any[]>([]);
 
-  const sales = useMemo(() => {
-    return getSales().sort((a, b) => b.createdAt - a.createdAt);
+  useEffect(() => {
+    const loadSales = async () => {
+      try {
+        const data = await getSales();
+        setSales(data.sort((a, b) => b.createdAt - a.createdAt));
+      } catch (error) {
+        console.error("Error loading sales:", error);
+      }
+    };
+
+    loadSales();
   }, []);
 
   const filteredSales = useMemo(() => {

@@ -112,7 +112,10 @@ export default function LoginPage() {
         <div className="mt-6 text-center">
           <p className="text-muted-foreground">
             Don't have an account?{" "}
-            <Link to="/signup" className="text-primary hover:underline font-semibold">
+            <Link
+              to="/signup"
+              className="text-primary hover:underline font-semibold"
+            >
               Sign up
             </Link>
           </p>

@@ -1,5 +1,13 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ShoppingCart, BarChart3, Package, Boxes, FileText, Settings, LogOut } from "lucide-react";
+import {
+  ShoppingCart,
+  BarChart3,
+  Package,
+  Boxes,
+  FileText,
+  Settings,
+  LogOut,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "./AuthContext";
 import { signOut } from "@/lib/auth";
@@ -50,7 +58,7 @@ export default function Layout({ children }: LayoutProps) {
                   "flex-1 flex flex-col items-center justify-center py-2 px-1 text-xs font-medium transition-colors border-t-2",
                   isActive(item.href)
                     ? "border-primary text-primary bg-primary bg-opacity-5"
-                    : "border-transparent text-muted-foreground hover:text-foreground"
+                    : "border-transparent text-muted-foreground hover:text-foreground",
                 )}
               >
                 <Icon className="h-5 w-5 mb-1" />
@@ -61,7 +69,7 @@ export default function Layout({ children }: LayoutProps) {
           <button
             onClick={handleLogout}
             className={cn(
-              "flex-1 flex flex-col items-center justify-center py-2 px-1 text-xs font-medium transition-colors border-t-2 border-transparent text-muted-foreground hover:text-foreground"
+              "flex-1 flex flex-col items-center justify-center py-2 px-1 text-xs font-medium transition-colors border-t-2 border-transparent text-muted-foreground hover:text-foreground",
             )}
             title="Logout"
           >
@@ -79,7 +87,9 @@ export default function Layout({ children }: LayoutProps) {
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                 <ShoppingCart className="h-5 w-5 text-white" />
               </div>
-              <span className="font-bold text-lg text-foreground">Snack Kit</span>
+              <span className="font-bold text-lg text-foreground">
+                Snack Kit
+              </span>
             </Link>
             <div className="flex gap-1">
               {navItems.map((item) => {
@@ -92,7 +102,7 @@ export default function Layout({ children }: LayoutProps) {
                       "px-3 py-2 rounded-md text-sm font-medium flex items-center gap-2 transition-colors",
                       isActive(item.href)
                         ? "bg-primary text-primary-foreground"
-                        : "text-foreground hover:bg-secondary"
+                        : "text-foreground hover:bg-secondary",
                     )}
                   >
                     <Icon className="h-4 w-4" />
@@ -103,7 +113,7 @@ export default function Layout({ children }: LayoutProps) {
               <button
                 onClick={handleLogout}
                 className="px-3 py-2 rounded-md text-sm font-medium flex items-center gap-2 text-foreground hover:bg-secondary transition-colors"
-                title={`Logged in as ${user?.email || 'User'}`}
+                title={`Logged in as ${user?.email || "User"}`}
               >
                 <LogOut className="h-4 w-4" />
                 Logout
@@ -114,9 +124,7 @@ export default function Layout({ children }: LayoutProps) {
       </nav>
 
       {/* Main Content */}
-      <main className="pb-20 md:pb-0">
-        {children}
-      </main>
+      <main className="pb-20 md:pb-0">{children}</main>
     </div>
   );
 }

@@ -1,6 +1,9 @@
-import { Link, useLocation } from "react-router-dom";
-import { ShoppingCart, BarChart3, Package, Boxes, FileText, Settings } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { ShoppingCart, BarChart3, Package, Boxes, FileText, Settings, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "./AuthContext";
+import { signOut } from "@/lib/auth";
+import { toast } from "sonner";
 
 interface LayoutProps {
   children: React.ReactNode;

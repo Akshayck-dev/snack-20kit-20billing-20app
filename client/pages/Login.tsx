@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { signIn } from "@/lib/auth";
+import { signIn, signUp } from "@/lib/auth";
 import { toast } from "sonner";
 import { LogIn } from "lucide-react";
 

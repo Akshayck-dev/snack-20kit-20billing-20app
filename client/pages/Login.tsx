@@ -25,6 +25,31 @@ export default function LoginPage() {
     }
   };
 
+  const handleDemoAccount = async () => {
+    setLoading(true);
+
+    try {
+      // Try to create demo account first
+      try {
+        await signUp("demo@snackkit.com", "Demo@12345");
+      } catch (error: any) {
+        // If account already exists, that's fine, just sign in
+        if (!error?.message?.includes("already registered")) {
+          throw error;
+        }
+      }
+
+      // Now sign in with demo account
+      await signIn("demo@snackkit.com", "Demo@12345");
+      toast.success("Demo account logged in!");
+      navigate("/");
+    } catch (error: any) {
+      toast.error(error?.message || "Demo account failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">

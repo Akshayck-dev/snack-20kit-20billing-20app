@@ -58,6 +58,16 @@ export default function Layout({ children }: LayoutProps) {
               </Link>
             );
           })}
+          <button
+            onClick={handleLogout}
+            className={cn(
+              "flex-1 flex flex-col items-center justify-center py-2 px-1 text-xs font-medium transition-colors border-t-2 border-transparent text-muted-foreground hover:text-foreground"
+            )}
+            title="Logout"
+          >
+            <LogOut className="h-5 w-5 mb-1" />
+            <span className="line-clamp-1">Logout</span>
+          </button>
         </div>
       </nav>
 

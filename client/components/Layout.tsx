@@ -11,6 +11,18 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      toast.success("Logged out successfully");
+      navigate("/login");
+    } catch (error: any) {
+      toast.error(error?.message || "Logout failed");
+    }
+  };
 
   const navItems = [
     { href: "/", label: "Dashboard", icon: ShoppingCart },
